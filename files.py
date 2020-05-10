@@ -14,8 +14,9 @@ def deduplicate_files_in_directory():
 
 def test_deduplicate_files_in_directory():
   # 1. create some files
-  for i in range(10):
-    open('./file-{0}.txt'.format(i), 'w').close()
+  temp_files = ['./file-{0}.txt'.format(i) for i in range(10)]
+  for i in range(len(temp_files)):
+    open(temp_files[i], 'w').close()
 
     # 2. make copy of same file for "even" files
     is_even_number = i % 2 == 0
@@ -38,11 +39,8 @@ def test_deduplicate_files_in_directory():
     print("PASS!")
 
   # 5. clean up the files we created
-  # IMPORTANT: this assumes anything with "file-" is a created file, 
-  #            and will delete it
-  for filename in files_in_current_directory:
-    if 'file-' in filename:
-      os.remove(filename)
+  for temp_file in temp_files:
+    os.remove(temp_file)
 
 if __name__ == "__main__":
   # deduplicate_files_in_directory()
